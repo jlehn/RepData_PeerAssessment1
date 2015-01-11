@@ -32,7 +32,7 @@ For this part of the assignment, you can ignore the missing values in the datase
 
 
 ```r
-hist(data$steps, col="red", xlab="Total steps per day", ylab="Number of days", main="Total Steps Taken Per Day")
+barplot(data$steps, col="red", xlab="Days", ylab="Total steps", main="Total Steps Taken Per Day")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
@@ -61,7 +61,7 @@ stepsinterval <- aggregate(steps ~ interval, rawdata, mean)
 # generate the line plot of the 5-minute interval (x-axis) and the average number of 
 # steps taken, averaged across all days (y-axis)
 plot(stepsinterval$interval, stepsinterval$steps, type='l', col=1, 
-     main="Average number of steps averaged over all days", xlab="Interval", 
+     main="Average number of steps over all days", xlab="Interval", 
      ylab="Average number of steps")
 ```
 
@@ -111,8 +111,8 @@ the mean/median for that day, or the mean for that 5-minute interval, etc.
 for (i in 1:nrow(data)){
   if (is.na(data$steps[i])){
     intervalval <- data$interval[i]
-    row_id <- which(intervalsteps$interval == intervalval)
-    steps_val <- intervalsteps$steps[row_id]
+    row_id <- which(stepsinterval$interval == intervalval)
+    steps_val <- stepsinterval$steps[row_id]
     data$steps[i] <- steps_val
   }
 }
@@ -136,7 +136,7 @@ daily number of steps?
 
 ```r
 # creates histogram of total number of steps in a day
-hist(stepsperdate$steps, col="red", main="Histogram of total number of steps per day", xlab="Total number of steps in a day")
+barplot(stepsperdate$steps, col="red", xlab="Days", ylab="Total steps", main="Total Number of Steps per Day")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-10-1.png) 
@@ -150,8 +150,11 @@ tmean <- mean(stepsperdate$steps)
 tmedian <- median(stepsperdate$steps)
 ```
 
-The mean value is 1.0766189\times 10^{4} and median is 10765 for total number of steps taken per day. Do
-these values differ from the estimates from the first part of the assignment? Due to data imputation, the means remain same whereas there is slight change in median value.
+The mean value of steps per day is 1.0766189\times 10^{4} and median steps per day is 10765. 
+
+Do these values differ from the estimates from the first part of the assignment? 
+
+Due to data imputation, the means remain same whereas there is slight change in median value.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
